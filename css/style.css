@@ -1,0 +1,68 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-wrap{
+   
+    padding-left: 10px;
+}
+
+.logo-container{
+    padding-top: 40px;
+    padding-bottom: 17px;
+}
+
+
+.body-wrapp{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+.wrapp-chart{
+   width: 1625px;
+   
+}
+
+.history{
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.history-wrapp{
+    padding-top: 24px;
+}
+
+.training-wrapp{
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
+   
+}
+
+.btn-training{
+    padding-top: 24px;
+}
+
+.charts{
+   padding-bottom: 20px;
+}
+
+/* footer */
+
+.footer-wrapp{
+    padding-top: 100px;
+    padding-left: 30px;
+    padding-bottom: 40px;
+    padding-right: 30px;
+}
+
+.footer-list{
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    padding-top: 30px;
+}
