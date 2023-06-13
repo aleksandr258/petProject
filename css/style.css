@@ -51,6 +51,19 @@
    padding-bottom: 20px;
 }
 
+#emerging-div{
+    display: none;
+}
+
+#emergingCardWrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#emerging-card{
+    width: 18rem;
+}
 /* footer */
 
 .footer-wrapp{
