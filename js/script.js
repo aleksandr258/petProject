@@ -46,15 +46,37 @@ function updateMenu() {
     menu2.options.add(new Option("Поддьем гантелей на бицепс"));
   }
 }
+ 
+let formWeight = document.getElementById("form-weight");
+let formReps = document.getElementById("form-reps");
+let formApproach = document.getElementById("form-approach");
+
+formWeight.addEventListener("input", function() {
+  var weightInput = formWeight.value; // Получаем значение из поля ввода
+
+  // var block = document.createElement("div"); // Создаем новый элемент div
+  // block.textContent = input; // Задаем текст содержимого блока
+
+  // blockContainer.appendChild(block); // Добавляем созданный блок в контейнер
+  console.log(weightInput);
+});
 
 const FORM_OBJECT = {
       group: 0,
-      exersize: 0,
+      exersize: [],
       weight: 0,
       reps: 0,
-      approach: 0
+      approach: 0,
+      dateTraining: []
     }
-
+const EMERGING_OBJECT = {
+      group: 0,
+      exersize: [],
+      weight: 0,
+      reps: 0,
+      approach: 0,
+      dateTraining: []
+    }
 function createTrainig(){
   let firstHistoryDivWrapp = document.querySelector('.col');
   const newHistoryDivWrapp = document.createElement("div");
@@ -71,8 +93,9 @@ function createTrainig(){
   titleHistory.classList.add("card-title");
 
   const pHistory = document.createElement("p");
-  pHistory.textContent = FORM_OBJECT.exersize;
+  pHistory.textContent = `${FORM_OBJECT.exersize}:  ${FORM_OBJECT.weight}кг на ${FORM_OBJECT.reps} повтора`;
   pHistory.classList.add("card-text");
+  
 
 
 
@@ -84,22 +107,45 @@ function createTrainig(){
    newHistoryDivBody.appendChild(pHistory);
    
 }
-
+ let buttonAddExersize = document.getElementById("button-addon2");
+  function formReset(){
+    formWeight.value = "";
+    formReps.value = "";
+    formApproach.value = "";
+   
+    
+  }
+    
+  
 
   const buttonSave = document.getElementById("button-addon1");
+  
+
 
   buttonSave.addEventListener("click",function(){
-    const group = document.getElementById("menu1").value;
-    const exersize = document.getElementById("menu2").value;
-    const weight = document.getElementById("form-weight").value;
-    const reps = document.getElementById("form-reps").value;
-    const approach = document.getElementById("form-approach").value;
+   const group = document.getElementById("menu1").value;
+   const exersize = document.getElementById("menu2").value;
+   const weight = document.getElementById("form-weight").value;
+   const reps = document.getElementById("form-reps").value;
+   const approach = document.getElementById("form-approach").value;
+
+
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1; // Месяцы в объекте Date начинаются с 0, поэтому добавляем 1
+    const year = currentDate.getFullYear();
+
+    const formattedDate = `${day}-${month}-${year}`;
+    FORM_OBJECT.dateTraining.push(formattedDate);
+    FORM_OBJECT.exersize.push(exersize);
+    
 
     FORM_OBJECT.group = group;
-    FORM_OBJECT.exersize = exersize;
+    
     FORM_OBJECT.weight = weight;
     FORM_OBJECT.reps = reps;
     FORM_OBJECT.approach = approach;
+   
     
     createTrainig();
 
@@ -108,11 +154,7 @@ function createTrainig(){
 
 
 
-let firstWorkout = {
-  benchPress: 100,
-  reps: 1,
-  when: '22.03.2023'
-}
+
 
 
 
@@ -136,4 +178,59 @@ let ctx = document.querySelector("#firstChart").getContext("2d");
   });
 
 
-  document.getElementById("menu1").addEventListener("click", updateMenu);
+document.getElementById("menu1").addEventListener("click", updateMenu);
+const currentDate = new Date();
+const day = currentDate.getDate();
+const month = currentDate.getMonth() + 1; // Месяцы в объекте Date начинаются с 0, поэтому добавляем 1
+const year = currentDate.getFullYear();
+
+const formattedDate = `${day}-${month}-${year}`;
+console.log(formattedDate);
+const emergingDiv = document.getElementById("emerging-div");
+const emergingCard = document.getElementById("emerging-card");
+
+buttonAddExersize.addEventListener("click",function(){//создание появляющейся карточки с структурой тренировок
+  const weight = parseInt(document.getElementById("form-weight").value);
+  const reps = parseInt( document.getElementById("form-reps").value);
+  const approach =parseInt (document.getElementById("form-approach").value);
+  const exersize = document.getElementById("menu2").value;
+
+  const emergingCardWrap = document.getElementById("emergingCardWrap");
+
+  if (weight !=="" || reps !=="" || approach !==""){
+    emergingDiv.style.display = "block";
+    
+    const cardBodyEmerging = document.createElement("div");
+    cardBodyEmerging.classList.add("card-body-emerging")
+    cardBodyEmerging.id = "emerging-card";
+    emergingCardWrap.appendChild(cardBodyEmerging);
+
+    const newEmergingCard = document.createElement("div");
+    newEmergingCard.classList.add("card");
+    newEmergingCard.id = "emerging-card";
+
+    const emergingTitle = document.createElement("h5");
+    emergingTitle.textContent = exersize;
+    emergingTitle.classList.add("card-title", "emerging-title");
+    
+    const exersizeList = document.createElement("ol");
+    exersizeList.classList.add("list-group",  "list-group-numbered");
+    
+    
+    for (let i = 0; i < approach; i++){
+      const liExersize = document.createElement("li");
+      liExersize.classList.add("list-group-item");
+      liExersize.textContent = `${weight}кг на ${reps} повтора`;
+
+      exersizeList.appendChild(liExersize);
+    }
+    cardBodyEmerging.appendChild(newEmergingCard);
+    newEmergingCard.appendChild(emergingTitle)
+    newEmergingCard.appendChild(exersizeList);
+
+    
+    formReset();
+  }
+  
+})
+
